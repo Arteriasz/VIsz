@@ -30,9 +30,8 @@ int setTerminalRaw(int fildes) {
 int main(){
     cout << "im running" << endl;
 
-    if(setTerminalRaw(0) < 0)
-	{
-		fprintf(stderr,"Can't go to raw mode.\n");
+    if(setTerminalRaw(0) < 0) {
+		cout << ("Can't go to raw mode.\n") << endl; 
 		exit(1);
 	}
     return 0;
