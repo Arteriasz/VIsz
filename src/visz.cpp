@@ -2,7 +2,7 @@
 #include <termios.h>
 #include <csignal>
 #include <unistd.h>
-using std::cout, std::endl, std::signal;
+using std::cout, std::endl, std::signal, std::raise;
 
 termios terminal_cooked;
 // https://man7.org/linux/man-pages/man3/termios.3.html
@@ -37,33 +37,28 @@ int setTerminalCooked(int fildes)
 
 void sigcatch(int sig)
 {
-    cout << "pegou sginak" << sig << endl;
+    cout << "signal received " << sig << endl;
 	setTerminalCooked(0);
 	exit(0);
 }
 
 int main(){
-    int i;
-    char c;
+    int bytesRead = 0;
+    char input = '\0';
 
-    if(signal(SIGINT,sigcatch) < 0)
-	{
-		perror("signal");
-		exit(1);
-	}
+    signal(SIGINT,sigcatch);
     
     if(setTerminalRaw(0) < 0) {
 		cout << ("Can't go to raw mode.\n") << endl; 
 		exit(1);
 	}
 
-    while( (i = read(0, &c, 1)) == 1)
-	{
-        if(c == 3) {
-            std::raise(SIGINT);
+    while( (bytesRead = read(0, &input, 1)) == 1){
+        if(input == 3) {
+            raise(SIGINT);
         }
 
-		printf( "%o\n\r", c);
+		printf( "%o\n\r", input);
 	}
     
     return 0;
