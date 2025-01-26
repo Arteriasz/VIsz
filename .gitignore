@@ -1,6 +1,9 @@
 .vscode
 main-app
 
+# Vim swap files
+*.swp
+
 # Prerequisites
 *.d
 
