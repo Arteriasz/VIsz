@@ -2,7 +2,7 @@
 #include <termios.h>
 #include <csignal>
 #include <unistd.h>
-using std::cout, std::endl, std::signal, std::raise;
+using std::cout, std::endl, std::signal, std::raise, std::cin;
 
 termios terminal_cooked;
 // https://man7.org/linux/man-pages/man3/termios.3.html
@@ -53,7 +53,7 @@ int main(){
 		exit(1);
 	}
 
-    while( (bytesRead = read(0, &input, 1)) == 1){
+    while(cin.read(&input, 1)){
         if(input == 3) {
             raise(SIGINT);
         }
