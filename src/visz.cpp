@@ -42,7 +42,6 @@ void sigcatch(int sig) {
 }
 
 int main() {
-    int bytesRead = 0;
     char input = '\0';
 
     signal(SIGINT, sigcatch);
