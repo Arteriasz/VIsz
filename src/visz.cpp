@@ -27,39 +27,38 @@ int setTerminalRaw(int fildes) {
 
     return 0;
 }
-int setTerminalCooked(int fildes)
-{
-	if(tcsetattr(fildes, TCSAFLUSH, &terminal_cooked) < 0)
-		return(-1);
-	return 0;
-	
+int setTerminalCooked(int fildes) {
+    if(tcsetattr(fildes, TCSAFLUSH, &terminal_cooked) < 0)
+        return(-1);
+        
+    return 0;
+    
 }
 
-void sigcatch(int sig)
-{
+void sigcatch(int sig) {
     cout << "signal received " << sig << endl;
-	setTerminalCooked(0);
-	exit(0);
+    setTerminalCooked(0);
+    exit(0);
 }
 
-int main(){
+int main() {
     int bytesRead = 0;
     char input = '\0';
 
-    signal(SIGINT,sigcatch);
+    signal(SIGINT, sigcatch);
     
     if(setTerminalRaw(0) < 0) {
-		cout << ("Can't go to raw mode.\n") << endl; 
-		exit(1);
-	}
+        cout << ("Can't go to raw mode.\n") << endl; 
+        exit(1);
+    }
 
     while(cin.read(&input, 1)){
         if(input == 3) {
             raise(SIGINT);
         }
 
-		printf( "%o\n\r", input);
-	}
+        printf( "%o\n\r", input);
+    }
     
     return 0;
 }
