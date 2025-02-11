@@ -51,7 +51,7 @@ int main() {
         exit(1);
     }
 
-    cout << "\033[2J \033[0d \033[0G";
+    cout << "\033[2J \033[d \033[G";
     while(cin.read(&input, 1)){
         if(input == 3) {
             raise(SIGINT);
