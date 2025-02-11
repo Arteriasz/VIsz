@@ -51,6 +51,8 @@ int main() {
         exit(1);
     }
 
+    cout << "\033[2J" << endl;
+
     while(cin.read(&input, 1)){
         if(input == 3) {
             raise(SIGINT);
