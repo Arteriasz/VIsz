@@ -2,6 +2,7 @@
 #include <termios.h>
 #include <csignal>
 #include <unistd.h>
+#include <sys/ioctl.h>
 using std::cout, std::endl, std::signal, std::raise, std::cin;
 
 termios terminal_cooked;
@@ -41,10 +42,27 @@ void sigcatch(int sig) {
     exit(0);
 }
 
+int getTerminalSize(winsize sz){
+    //get terminal size https://stackoverflow.com/questions/1022957/getting-terminal-width-in-c/1022961#1022961
+    if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &sz) == -1) {
+        std::cerr << "Erro ao obter o tamanho do terminal" << std::endl;
+        return 1;
+    }
+
+    return 0;
+}
+
 int main() {
+    winsize winsz;
+
+    if(getTerminalSize(winsz) > 0) {
+        raise(SIGINT);
+    }
+
     char input = '\0';
     char cursorPos = '\0';
-    int a =0;
+    int i = winsz.ws_row-1;
+
     signal(SIGINT, sigcatch);
     
     if(setTerminalRaw(0) < 0) {
@@ -52,12 +70,12 @@ int main() {
         exit(1);
     }
 
-    cout << "\033[2J \033[d";
-    while(a<20){
-	cout << "SZ~\033[B \033[G";
-	a++;
+    cout << "\033[2J\033[" << i << 'd';
+
+    while(i > 0){
+        cout << "SZ~\033[A\033[G";
+        i--;
     }
-    //cout << "\033[5G \033d";
 
     while(cin.read(&input, 1)){
         if(input == 3) {
