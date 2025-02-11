@@ -43,7 +43,8 @@ void sigcatch(int sig) {
 
 int main() {
     char input = '\0';
-
+    char cursorPos = '\0';
+    int a =0;
     signal(SIGINT, sigcatch);
     
     if(setTerminalRaw(0) < 0) {
@@ -51,7 +52,13 @@ int main() {
         exit(1);
     }
 
-    cout << "\033[2J \033[d \033[G";
+    cout << "\033[2J \033[d";
+    while(a<20){
+	cout << "SZ~\033[B \033[G";
+	a++;
+    }
+    //cout << "\033[5G \033d";
+
     while(cin.read(&input, 1)){
         if(input == 3) {
             raise(SIGINT);
