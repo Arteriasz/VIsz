@@ -60,7 +60,6 @@ int main() {
     }
 
     char input = '\0';
-    char cursorPos = '\0';
     int i = winsz.ws_row-1;
 
     signal(SIGINT, sigcatch);
@@ -82,7 +81,17 @@ int main() {
             raise(SIGINT);
         }
 
-        printf( "%o\n\r", input);
+        if(input == 119 || input == 87) {
+            cout << "\033[A";
+        } else if(input == 97 || input == 65) {
+            cout << "\033[D";
+        } else if (input == 115 || input == 83) {
+            cout << "\033[B";
+        } else if(input == 100 || input == 68) {
+            cout << ("\033[C");
+        }
+
+        // printf( "%o\n\r", input);
     }
     
     return 0;
