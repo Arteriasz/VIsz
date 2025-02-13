@@ -80,24 +80,23 @@ int main() {
         if(input == 3) {
             raise(SIGINT);
         }
-	if(input == 105){
-	    control = false;
-	}else if(input == 27) { 
-	    control = true;
-	}
-	if (control == true){
-		if(input == 119){
-            	cout << "\033[A";
-        	} else if(input == 97) {
-           	cout << "\033[D";
-        	} else if (input == 115) {
-           	cout << "\033[B";
-        	} else if(input == 100) 
-           cout << ("\033[C");
-	
-		
-		}
-    	}
+        if(input == 105){
+            control = false;
+        } else if(input == 27) { 
+            control = true;
+        }
+        if (control) {
+            if(input == 119){
+                cout << "\033[A";
+            } else if(input == 97) {
+                cout << "\033[D";
+            } else if (input == 115) {
+                cout << "\033[B";
+            } else if(input == 100) {
+                cout << ("\033[C");
+            }
+        }
+    }
     
     return 0;
 }
