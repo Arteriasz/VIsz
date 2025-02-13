@@ -58,10 +58,10 @@ int main() {
     if(getTerminalSize(winsz) > 0) {
         raise(SIGINT);
     }
-
+    bool control = true;	
     char input = '\0';
     int i = winsz.ws_row-1;
-
+    
     signal(SIGINT, sigcatch);
     
     if(setTerminalRaw(0) < 0) {
@@ -80,19 +80,23 @@ int main() {
         if(input == 3) {
             raise(SIGINT);
         }
-
-        if(input == 119 || input == 87) {
-            cout << "\033[A";
-        } else if(input == 97 || input == 65) {
-            cout << "\033[D";
-        } else if (input == 115 || input == 83) {
-            cout << "\033[B";
-        } else if(input == 100 || input == 68) {
-            cout << ("\033[C");
-        }
-
-        // printf( "%o\n\r", input);
+	if(input == 105){
+	    control = false;
+	}else if(input == 27) { 
+	    control = true;
+	if (control == true){
+		if(input == 119) {
+            	cout << "\033[A";
+        	} else if(input == 97) {
+           	cout << "\033[D";
+        	} else if (input == 115) {
+           	cout << "\033[B";
+        	} else if(input == 100) 
+           	cout << ("\033[C");
+	
+		
+		}
+    	}
     }
-    
     return 0;
 }
