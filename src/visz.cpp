@@ -84,19 +84,20 @@ int main() {
 	    control = false;
 	}else if(input == 27) { 
 	    control = true;
+	}
 	if (control == true){
-		if(input == 119) {
+		if(input == 119){
             	cout << "\033[A";
         	} else if(input == 97) {
            	cout << "\033[D";
         	} else if (input == 115) {
            	cout << "\033[B";
         	} else if(input == 100) 
-           	cout << ("\033[C");
+           cout << ("\033[C");
 	
 		
 		}
     	}
-    }
+    
     return 0;
 }
