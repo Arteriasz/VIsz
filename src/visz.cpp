@@ -80,19 +80,19 @@ int main() {
         if(input == 3) {
             raise(SIGINT);
         }
-        if(input == 105){
+        if(input == 105){ //Received char 'i' 
             control = false;
-        } else if(input == 27) { 
+        } else if(input == 27) { //Received char 'ESC'
             control = true;
         }
         if (control) {
-            if(input == 119){
+            if(input == 119){ //Received char 'w'
                 cout << "\033[A";
-            } else if(input == 97) {
+            } else if(input == 97) { //Received char 'a'
                 cout << "\033[D";
-            } else if (input == 115) {
+            } else if (input == 115) { //Received char 's'
                 cout << "\033[B";
-            } else if(input == 100) {
+            } else if(input == 100) { //Received char 'd'
                 cout << ("\033[C");
             }
         }
