@@ -29,6 +29,9 @@ int setTerminalRaw(int fildes) {
     return 0;
 }
 int setTerminalCooked(int fildes) {
+
+    cout << "\033[2J\033[H"; //https://student.cs.uwaterloo.ca/~cs452/terminal.html
+
     if(tcsetattr(fildes, TCSAFLUSH, &terminal_cooked) < 0)
         return(-1);
         
